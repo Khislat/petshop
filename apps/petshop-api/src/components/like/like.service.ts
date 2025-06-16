@@ -44,41 +44,38 @@ export class LikeService {
 		const { page, limit } = input;
 		const match: T = { likeGroup: LikeGroup.PRODUCT, memberId: memberId };
 
-		const data: T = await this.likeModel
-			.aggregate([
-				{ $match: match },
-				{
-					$sort: { updatedAt: -1 },
+		const data = await this.likeModel.aggregate([
+			{ $match: match },
+			{ $sort: { updatedAt: -1 } },
+			{
+				$lookup: {
+					from: 'products',
+					localField: 'likeRefId',
+					foreignField: '_id',
+					as: 'favoriteProduct',
 				},
-				{
-					$lookup: {
-						from: 'products',
-						localField: 'likeRefId',
-						foreignField: '_id',
-						as: 'favoriteProduct',
-					},
+			},
+			{
+				$unwind: {
+					path: '$favoriteProduct',
+				}
+			},
+			{
+				$facet: {
+					list: [
+						{ $skip: (page - 1) * limit },
+						{ $limit: limit },
+					],
+					metaCounter: [{ $count: 'total' }],
 				},
-				{
-					$unwind: '$favoriteProduct',
-				},
-				{
-					$facet: {
-						list: [
-							{ $skip: (page - 1) * limit },
-							{ $limit: limit },
-							lookupFavorite,
-							{
-								$unwind: '$favoriteProduct.memberData',
-							},
-						],
-						metaCounter: [{ $count: 'total' }],
-					},
-				},
-			])
-			.exec();
+			},
+		]).exec();
+		
+		console.log(JSON.stringify(data, null, 2));
+		
 
 		const result: Products = { list: [], metaCounter: data[0].metaCounter };
-		result.list = data[0].list.map((ele) => ele.favoriteProperty);
+		result.list = data[0].list.map((ele) => ele.favoriteProduct);
 		return result;
 	}
 }
