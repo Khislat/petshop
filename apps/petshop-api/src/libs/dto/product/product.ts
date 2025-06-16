@@ -1,64 +1,49 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { ObjectId } from 'mongoose';
-import { PropertyType, PropertyStatus, PropertyLocation } from '../../enums/property.enum';
 import { Member, TotalCounter } from '../member/member';
 import { MeLiked } from '../like/like';
+import { ProductCategory, ProductStatus, ProductWeight } from '../../enums/product.enum';
 
 @ObjectType()
-export class Property {
+export class Product {
 	@Field(() => String)
 	_id: ObjectId;
 
-	@Field(() => PropertyType)
-	propertyType: PropertyType;
+	@Field(() => ProductCategory)
+	productCategory: ProductCategory;
 
-	@Field(() => PropertyStatus)
-	propertyStatus: PropertyStatus;
+	@Field(() => ProductStatus)
+	productStatus: ProductStatus;
 
-	@Field(() => PropertyLocation)
-	propertyLocation: PropertyLocation;
-
-	@Field(() => String)
-	propertyAddress: string;
+	@Field(() => ProductWeight)
+	productWeight: ProductWeight;
 
 	@Field(() => String)
-	propertyTitle: string;
+	productTitle: string;
+
+	// @Field(() => String)
+	// brandName: string;
 
 	@Field(() => Number)
-	propertyPrice: number;
-
-	@Field(() => Number)
-	propertySquare: number;
+	productPrice: number;
 
 	@Field(() => Int)
-	propertyBeds: number;
+	productViews: number;
 
 	@Field(() => Int)
-	propertyRooms: number;
+	productLikes: number;
 
 	@Field(() => Int)
-	propertyViews: number;
+	productComments: number;
 
 	@Field(() => Int)
-	propertyLikes: number;
-
-	@Field(() => Int)
-	propertyComments: number;
-
-	@Field(() => Int)
-	propertyRank: number;
+	productRank: number;
 
 	@Field(() => [String])
-	propertyImages: string[];
+	productImages: string[];
 
 	@Field(() => String, { nullable: true })
-	propertyDesc?: string;
-
-	@Field(() => Boolean)
-	propertyBarter: boolean;
-
-	@Field(() => Boolean)
-	propertyRent: boolean;
+	productDesc?: string;
 
 	@Field(() => String)
 	memberId: ObjectId;
@@ -88,9 +73,9 @@ export class Property {
 }
 
 @ObjectType()
-export class Properties {
-	@Field(() => [Property])
-	list: Property[];
+export class Products {
+	@Field(() => [Product])
+	list: Product[];
 
 	@Field(() => [TotalCounter], { nullable: true })
 	metaCounter: TotalCounter[];

@@ -1,70 +1,49 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
 import { IsNotEmpty, IsOptional, Length, IsIn, Min } from 'class-validator';
-import { PropertyType, PropertyLocation, PropertyStatus } from '../../enums/property.enum';
+
 import { ObjectId } from 'mongoose';
-import { availableOptions, availablePropertySorts } from '../../config';
+import { availableProductSorts } from '../../config';
 import { Direction } from '../../enums/common.enum';
+import { ProductCategory, ProductStatus, ProductWeight } from '../../enums/product.enum';
 
 @InputType()
-export class PropertyInput {
+export class ProductInput {
 	@IsNotEmpty()
-	@Field(() => PropertyType)
-	propertyType: PropertyType;
+	@Field(() => ProductCategory)
+	productCategory: ProductCategory;
 
-	@IsNotEmpty()
-	@Field(() => PropertyLocation)
-	propertyLocation: PropertyLocation;
-
-	@IsNotEmpty()
-	@Length(3, 100)
-	@Field(() => String)
-	propertyAddress: string;
+	@IsOptional()
+	@Field(() => ProductWeight, { nullable: true })
+	productWeight: ProductWeight;
 
 	@IsNotEmpty()
 	@Length(3, 100)
 	@Field(() => String)
-	propertyTitle: string;
+	productTitle: string;
+
+	// @IsNotEmpty()
+	// @Length(3, 100)
+	// @Field(() => String)
+	// brandName: string;
 
 	@IsNotEmpty()
 	@Field(() => Number)
-	propertyPrice: number;
-
-	@IsNotEmpty()
-	@Field(() => Number)
-	propertySquare: number;
-
-	@IsNotEmpty()
-	@Min(1)
-	@Field(() => Int)
-	propertyBeds: number;
-
-	@IsNotEmpty()
-	@Min(1)
-	@Field(() => Int)
-	propertyRooms: number;
+	productPrice: number;
 
 	@IsNotEmpty()
 	@Field(() => [String])
-	propertyImages: string[];
+	productImages: string[];
 
 	@IsOptional()
 	@Length(5, 500)
 	@Field(() => String, { nullable: true })
-	propertyDesc?: string;
-
-	@IsOptional()
-	@Field(() => Boolean, { nullable: true })
-	propertyBarter?: boolean;
-
-	@IsOptional()
-	@Field(() => Boolean, { nullable: true })
-	propertyRent?: boolean;
+	productDesc?: string;
 
 	memberId?: ObjectId;
 
 	@IsOptional()
 	@Field(() => Date, { nullable: true })
-	constructedAt?: Date;
+	createdAt?: Date;
 }
 
 @InputType()
@@ -100,25 +79,8 @@ class PISearch {
 	memberId?: ObjectId;
 
 	@IsOptional()
-	@Field(() => [PropertyLocation], { nullable: true })
-	locationList?: PropertyLocation[];
-
-	@IsOptional()
-	@Field(() => [PropertyType], { nullable: true })
-	typeList?: PropertyType[];
-
-	@IsOptional()
-	@Field(() => [Int], { nullable: true })
-	roomsList?: Number[];
-
-	@IsOptional()
-	@Field(() => [Int], { nullable: true })
-	bedsList?: Number[];
-
-	@IsOptional()
-	@IsIn(availableOptions, { each: true })
-	@Field(() => [String], { nullable: true })
-	options?: string[];
+	@Field(() => [ProductCategory], { nullable: true })
+	typeList?: ProductCategory[];
 
 	@IsOptional()
 	@Field(() => PricesRange, { nullable: true })
@@ -129,16 +91,12 @@ class PISearch {
 	periodsRange?: PeriodsRange;
 
 	@IsOptional()
-	@Field(() => SquaresRange, { nullable: true })
-	squaresRange?: SquaresRange;
-
-	@IsOptional()
 	@Field(() => String, { nullable: true })
 	text?: string;
 }
 
 @InputType()
-export class PropertiesInquiry {
+export class ProductsInquiry {
 	@IsNotEmpty()
 	@Min(1)
 	@Field(() => Int)
@@ -150,7 +108,7 @@ export class PropertiesInquiry {
 	limit: number;
 
 	@IsOptional()
-	@IsIn(availablePropertySorts)
+	@IsIn(availableProductSorts)
 	@Field(() => String, { nullable: true })
 	sort?: string;
 
@@ -164,14 +122,14 @@ export class PropertiesInquiry {
 }
 
 @InputType()
-class APISearch {
+class VPISearch {
 	@IsOptional()
-	@Field(() => PropertyStatus, { nullable: true })
-	propertyStatus?: PropertyStatus;
+	@Field(() => ProductStatus, { nullable: true })
+	productStatus?: ProductStatus;
 }
 
 @InputType()
-export class AgentPropertiesInquiry {
+export class VendorProductsInquiry {
 	@IsNotEmpty()
 	@Min(1)
 	@Field(() => Int)
@@ -183,7 +141,7 @@ export class AgentPropertiesInquiry {
 	limit: number;
 
 	@IsOptional()
-	@IsIn(availablePropertySorts)
+	@IsIn(availableProductSorts)
 	@Field(() => String, { nullable: true })
 	sort?: string;
 
@@ -192,23 +150,19 @@ export class AgentPropertiesInquiry {
 	direction?: Direction;
 
 	@IsNotEmpty()
-	@Field(() => APISearch)
-	search: APISearch;
+	@Field(() => VPISearch)
+	search: VPISearch;
 }
 
 @InputType()
 class ALPISearch {
 	@IsOptional()
-	@Field(() => PropertyStatus, { nullable: true })
-	propertyStatus?: PropertyStatus;
-
-	@IsOptional()
-	@Field(() => [PropertyLocation], { nullable: true })
-	propertyLocationList?: PropertyLocation[];
+	@Field(() => ProductStatus, { nullable: true })
+	productStatus?: ProductStatus;
 }
 
 @InputType()
-export class AllPropertiesInquiry {
+export class AllProductsInquiry {
 	@IsNotEmpty()
 	@Min(1)
 	@Field(() => Int)
@@ -220,7 +174,7 @@ export class AllPropertiesInquiry {
 	limit: number;
 
 	@IsOptional()
-	@IsIn(availablePropertySorts)
+	@IsIn(availableProductSorts)
 	@Field(() => String, { nullable: true })
 	sort?: string;
 

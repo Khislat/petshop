@@ -1,5 +1,5 @@
 {
-	"name": "nestar",
+	"name": "petshop",
 	"version": "0.0.1",
 	"description": "",
 	"author": "",
@@ -9,18 +9,18 @@
 		"build": "nest build",
 		"format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
 		"start": "nest start",
-		"start:dev": " nest start --watch",
-		"start:dev:batch": "nest start nestar-batch --watch",
+		"start:dev": "nest start --watch",
+		"start:dev:batch": "nest start petshop-batch --watch",
 		"start:debug": "nest start --debug --watch",
-		"start:prod": "NODE_ENV=production node dist/apps/nestar-api/main",
-		"start:prod:batch": "node dist/apps/nestar-batch/main",
+		"start:prod": "NODE_ENV=production node dist/apps/petshop-api/main",
+		"start:prod:batch": "node dist/apps/petshop-batch/main",
 		"lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-		"test:e2e": "jest --config ./apps/nestar-api/test/jest-e2e.json",
-		"train": "nodemon --exec ts-node apps/nestar-api/src/train.ts"
+		"test:e2e": "jest --config ./apps/petshop-api/test/jest-e2e.json",
+		"train": "nodemon --exec ts-node apps/petshop-api/src/train.ts"
 	},
 	"dependencies": {
 		"-": "^0.0.1",

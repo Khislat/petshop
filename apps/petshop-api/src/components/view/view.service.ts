@@ -4,10 +4,10 @@ import { Model, ObjectId } from 'mongoose';
 import { View } from '../../libs/dto/view/view';
 import { ViewInput } from '../../libs/dto/view/view.input';
 import { T } from '../../libs/types/common';
-import { OrdinaryInquiry } from '../../libs/dto/property/property.input';
+import { OrdinaryInquiry } from '../../libs/dto/product/product.input';
 import { ViewGroup } from '../../libs/enums/view.enum';
-import { Properties } from '../../libs/dto/property/property';
 import { lookupVisit } from '../../libs/config';
+import { Products } from '../../libs/dto/product/product';
 
 @Injectable()
 export class ViewService {
@@ -27,9 +27,9 @@ export class ViewService {
 		return await this.viewModel.findOne(search).exec();
 	}
 
-	public async getVisitedPropeties(memberId: ObjectId, input: OrdinaryInquiry): Promise<Properties> {
+	public async getVisitedPropeties(memberId: ObjectId, input: OrdinaryInquiry): Promise<Products> {
 		const { page, limit } = input;
-		const match: T = { viewGroup: ViewGroup.PROPERTY, memberId: memberId };
+		const match: T = { viewGroup: ViewGroup.PRODUCT, memberId: memberId };
 
 		const data: T = await this.viewModel
 			.aggregate([
@@ -64,7 +64,7 @@ export class ViewService {
 			])
 			.exec();
 
-		const result: Properties = { list: [], metaCounter: data[0].metaCounter };
+		const result: Products = { list: [], metaCounter: data[0].metaCounter };
 		result.list = data[0].list.map((ele) => ele.visitedProperty);
 		return result;
 	}

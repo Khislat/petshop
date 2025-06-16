@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Member } from 'apps/petshop-api/src/libs/dto/member/member';
-import { Property } from 'apps/petshop-api/src/libs/dto/property/property';
+import { Property } from 'apps/petshop-api/src/libs/dto/product/product';
 import { MemberStatus, MemberType } from 'apps/petshop-api/src/libs/enums/member.enum';
-import { PropertyStatus } from 'apps/petshop-api/src/libs/enums/property.enum';
+import { PropertyStatus } from 'apps/petshop-api/src/libs/enums/product.enum';
 import { Model } from 'mongoose';
 
 @Injectable()

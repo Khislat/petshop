@@ -32,5 +32,6 @@ export class LoggingInterceptor implements NestInterceptor {
 				}),
 			);
 		}
+		return next.handle();
 	}
 }
