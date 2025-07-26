@@ -29,6 +29,10 @@ export class ProductInput {
 	@IsNotEmpty()
 	@Field(() => Number)
 	productPrice: number;
+	
+	@IsNotEmpty()
+	@Field(() => Number)
+	productOldPrice: number;
 
 	@IsNotEmpty()
 	@Field(() => [String])

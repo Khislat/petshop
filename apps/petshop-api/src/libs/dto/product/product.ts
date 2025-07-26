@@ -27,6 +27,9 @@ export class Product {
 	@Field(() => Number)
 	productPrice: number;
 
+	@Field(() => Number)
+	productOldPrice: number;
+
 	@Field(() => Int)
 	productViews: number;
 

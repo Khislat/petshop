@@ -1,0 +1,41 @@
+version: '3.3'
+
+services:
+  petshop-api:
+    container_name: petshop-api
+    restart: always
+    image: node:20.10.0
+    ports:
+      - 3001:4008
+    volumes:
+      - ./:/usr/src/petshop
+    working_dir: /usr/src/petshop
+
+    networks:
+      - monorepo-network
+
+    #FOR PRODUCTION
+    command: bash -c "npm install && npm run build && npm run start:prod"
+
+  petshop-batch:
+    container_name: petshop-batch
+    restart: unless-stopped
+    image: node:20.10.0
+    ports:
+      - 3002:4009
+    volumes:
+      - ./:/usr/src/petshop
+    working_dir: /usr/src/petshop
+
+    networks:
+      - monorepo-network
+
+    #FOR PRODUCTION
+    command: bash -c "npm install && npm run build && npm run start:prod:batch"
+
+networks:
+  monorepo-network:
+    driver: bridge
+# petshop-next:   localhost:3000 => container:4000
+# petshop-api:    localhost:3001 => container:4008
+# petshop-batch:  localhost:3002 => container:4009

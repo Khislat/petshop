@@ -13,7 +13,7 @@ import ProductSchema from 'apps/petshop-api/src/schemas/Product.model';
 		ConfigModule.forRoot(),
 		DatabaseModule,
 		ScheduleModule.forRoot(),
-		MongooseModule.forFeature([{ name: 'Property', schema: ProductSchema }]),
+		MongooseModule.forFeature([{ name: 'Product', schema: ProductSchema }]),
 		MongooseModule.forFeature([{ name: 'Member', schema: MemberSchema }]),
 	],
 	controllers: [BatchController],

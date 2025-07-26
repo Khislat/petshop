@@ -30,6 +30,11 @@ const ProductSchema = new Schema(
 			required: true,
 		},
 
+		productOldPrice: {
+			type: Number,
+			required: true,
+		},
+
 		productWeight: {
 			type: String,
 			enum: ProductWeight,
