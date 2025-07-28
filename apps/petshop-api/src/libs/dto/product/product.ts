@@ -28,7 +28,7 @@ export class Product {
 	productPrice: number;
 
 	@Field(() => Number)
-	productOldPrice: number;
+	Price: number;
 
 	@Field(() => Int)
 	productViews: number;

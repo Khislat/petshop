@@ -36,9 +36,7 @@ export class ProductUpdate {
 	@Field(() => Number, { nullable: true })
 	productPrice?: number;
 
-	@IsOptional()
-	@Field(() => Number, { nullable: true })
-	productOldPrice?: number;
+
 
 	@IsOptional()
 	@Field(() => [String], { nullable: true })
