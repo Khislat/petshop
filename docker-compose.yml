@@ -4,7 +4,7 @@ services:
     restart: always
     image: node:20.10.0
     ports:
-      - 4005:4008
+      - 5001:6007
     volumes:
       - ./:/usr/src/petshop
     working_dir: /usr/src/petshop
@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
     image: node:20.10.0
     ports:
-      - 4006:4009
+      - 5002:6008
     volumes:
       - ./:/usr/src/petshop
     working_dir: /usr/src/petshop
@@ -34,9 +34,9 @@ services:
 networks:
   monorepo-network:
     driver: bridge
-# petshop-next:   localhost:4007 => container:3000
-# petshop-api:    localhost:4008 => container:3001
-# petshop-batch:  localhost:4009 => container:3003
+# petshop-next:   localhost:5000 => container:6000
+# petshop-api:    localhost:5001 => container:6007
+# petshop-batch:  localhost:5002 => container:6008
 
 # docker compose up -d
 # docker compose stop
